@@ -26,9 +26,9 @@ python train_new.py -env_type chol
 python train_new.py -env_type QR
 python train_new.py -env_type LU
 ```
-### Number of tiles $T$
+### Number of tiles *T*
 
-The parameter **n** controls the number of tiles $T$. As the graphs grow rapidly with the number of tiles, the training can become slow from 10 onwards.
+The parameter **n** controls the number of tiles *T*. As the graphs grow rapidly with the number of tiles, the training can become slow from 10 onwards.
 ```
 python train_new.py -env_type QR -n 4
 ```

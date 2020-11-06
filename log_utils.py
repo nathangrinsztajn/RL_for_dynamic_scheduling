@@ -1,4 +1,4 @@
-from config import config_enhanced
+# from config import config_enhanced
 import os
 from datetime import datetime
 
@@ -38,8 +38,8 @@ def name_dir_logger(config_file):
     return name
 
 
-if __name__ == '__main__':
-    print(name_env_dir(config_enhanced))
-    print(str(datetime.today())[:-7].replace(' ', '_'))
-    print(name_mod_dir(config_enhanced))
-    print(name_dir(config_enhanced))
+# if __name__ == '__main__':
+#     print(name_env_dir(config_enhanced))
+#     print(str(datetime.today())[:-7].replace(' ', '_'))
+#     print(name_mod_dir(config_enhanced))
+#     print(name_dir(config_enhanced))

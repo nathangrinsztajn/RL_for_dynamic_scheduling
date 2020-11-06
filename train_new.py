@@ -40,7 +40,7 @@ parser.add_argument('--withbn', action='store_true', default=False, help='with b
 # env settings
 parser.add_argument('--n', type=int, default=4, help='number of tiles')
 parser.add_argument('--nGPU', type=int, default=1, help='number of GPUs')
-parser.add_argument('--n_core', type=int, default=4, help='number of cores')
+parser.add_argument('--nCPU', type=int, default=3, help='number of cores')
 parser.add_argument('--window', type=int, default=0, help='window')
 parser.add_argument('--noise', type=float, default=0, help='noise')
 parser.add_argument('--env_type', type=str, default='QR', help='chol or LU or QR')
@@ -51,13 +51,12 @@ config_enhanced = vars(args)
 
 writer = SummaryWriter('runs')
 
-p_input = np.array([1] * args.nGPU + [0] * (args.n_core - args.nGPU))
+p_input = np.array([1] * args.nGPU + [0] * args.nCPU)
 
 print("Current config_enhanced is:")
 pprint(config_enhanced)
 
-main_path = "/home/nathan/PycharmProjects/HPC"
-# main_path = "/home/ngrinsztajn/HPC"
+main_path = "HPC"
 
 
 env = DAGEnv(n=args.n, node_types=p_input, window=args.window, env_type=args.env_type, noise=args.noise)
@@ -70,15 +69,7 @@ model = ModelHeterogene(input_dim=args.input_dim,
                         nmlp_value=args.nmlp_value,
                         res=args.res,
                         withbn=args.withbn)
-# model = Net
-# model = SimpleNet
-# model = ResNetG
-# model = SimpleNetMax
 
 agent = A2C(config_enhanced, env, model=model, writer=writer)
 
 best_perf, _ = agent.training_batch()
-
-# TODO : evaluate test_mode and save if best than previous
-# TODO: Transfer ?
-# ToDo : load training batch during GPU training

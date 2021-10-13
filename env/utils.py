@@ -390,7 +390,7 @@ def ggen_cholesky(n_vertex, noise=0):
         out = np.array([[int(subx.split(' -> ')[0][1:]), int(subx.split(' -> ')[1][:-1])] for subx in x])
         return out.transpose()
 
-    file_path = '/home/ngrinsztajn/HPC/graphs/cholesky_{}.txt'.format(n_vertex)
+    file_path = 'graphs/cholesky_{}.txt'.format(n_vertex)
     if os.path.exists(file_path):
         with open(file_path, 'r') as f:
             graph = f.read()

@@ -868,10 +868,10 @@ if __name__ == "__main__":
     # print('ok')
     # env.task_data.add_features_descendant()
 #
-#     env = CholeskyTaskGraph(8, np.array([1,1,1,1]), 1, noise=2)
-# #     print(len(env.task_data.x))
-#     obs = env.reset()
-#     obs = env.reset()
+    env = CholeskyTaskGraph(8, np.array([1,1,1,1]), 1, noise=2)
+    print(len(env.task_data.x))
+    obs = env.reset()
+    obs = env.reset()
 #     done = False
 #     env.render()
 #     env.step(0, render_before=True, render_after=True)

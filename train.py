@@ -29,7 +29,7 @@ parser.add_argument('--agent', type=str, default='A2C', help='A2C')
 parser.add_argument("--result_name", type=str, default="results.csv", help="filename where results are stored")
 
 # model settings
-parser.add_argument('--input_dim', type=int, default=16, help='input dim')
+parser.add_argument('--input_dim', type=int, default=13, help='input dim')
 parser.add_argument('--hidden_dim', type=int, default=128, help='hidden dim')
 parser.add_argument('--ngcn', type=int, default=0, help='number of gcn')
 parser.add_argument('--nmlp', type=int, default=1, help='number of mlp to compute probs')
@@ -43,7 +43,7 @@ parser.add_argument('--nGPU', type=int, default=1, help='number of GPUs')
 parser.add_argument('--nCPU', type=int, default=3, help='number of cores')
 parser.add_argument('--window', type=int, default=0, help='window')
 parser.add_argument('--noise', type=float, default=0, help='noise')
-parser.add_argument('--env_type', type=str, default='QR', help='chol or LU or QR')
+parser.add_argument('--env_type', type=str, default='chol', help='chol or LU or QR')
 parser.add_argument('--seed_env', type=int, default=42, help='Random seed env ')
 
 args = parser.parse_args()

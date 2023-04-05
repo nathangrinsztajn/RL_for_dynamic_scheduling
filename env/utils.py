@@ -37,8 +37,8 @@ colors = {0: [0, 0, 0], 1: [230, 190, 255], 2: [170, 255, 195], 3: [255, 250, 20
           9: [66, 212, 244], 10: [60, 180, 75], 11: [191, 239, 69], 12: [255, 255, 25], 13: [245, 130, 49],
           14: [230, 25, 75], 15: [128, 0, 0], 16: [154, 99, 36], 17: [128, 128, 0], 18: [70, 153, 144],
           19: [0, 0, 117]}
-color_normalized = {i: list(np.array(colors[i])/255) for i in colors}
 
+color_normalized = {i: list(np.array(colors[i])/255) for i in colors}
 
 class Task():
 
@@ -115,6 +115,37 @@ class TaskGraph(Data):
             succ_features_norm[i] = feat_i_norm
         return succ_features_norm, succ_features
         # return succ_features_norm, succ_features/succ_features[0]
+
+    def longest_path_length(self):
+        # returns the longest path length for each task to the last task, normalized by the diameter of the graph
+        graph = to_networkx(Data(self.x, self.edge_index.contiguous()))
+        last_task_node = self.n - 1
+
+        def find_longest_path_lengths(graph, node, target, memo):
+            if node == target:
+                return 0
+            if node in memo:
+                return memo[node]
+
+            neighbors = list(graph.neighbors(node))
+            if not neighbors:
+                return 0
+
+            longest_path = 0
+            for neighbor in neighbors:
+                path_length = 1 + find_longest_path_lengths(graph, neighbor, target, memo)
+                longest_path = max(longest_path, path_length)
+
+            memo[node] = longest_path
+            return longest_path
+
+        longest_path_lengths = np.zeros(self.n)
+        memo = {}
+        for i in range(self.n):
+            longest_path_lengths[i] = find_longest_path_lengths(graph, i, last_task_node, memo)
+
+        return torch.tensor(longest_path_lengths/longest_path_lengths[0], dtype=torch.float)
+
 
 class Node():
     def __init__(self, type):

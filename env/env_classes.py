@@ -40,7 +40,7 @@ class DAGEnv(gym.Env):
             raise EnvironmentError('not implemented')
         self.num_nodes = self.task_data.num_nodes
         self.sum_task = torch.sum(self.task_data.x, dim=0)
-        self.norm_desc_features = self.task_data.add_features_descendant()[0] / self.sum_task
+        self.norm_desc_features = self.task_data.longest_path_length()
         self.cluster = Cluster(node_types=node_types.astype(int), communication_cost=np.zeros((p, p)))
         self.running = -1 * np.ones(p)  # array of task number
         self.running_task2proc = {}
@@ -248,7 +248,7 @@ class DAGEnv(gym.Env):
 
         # add other embeddings
 
-        descendant_features_norm = self.norm_desc_features[tasks].squeeze(1)
+        descendant_features_norm = self.norm_desc_features[tasks]
 
         # CP below task
         # cpl = torch.zeros(tasks.shape[0])

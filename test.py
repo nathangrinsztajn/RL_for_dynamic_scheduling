@@ -7,13 +7,16 @@ import string
 import matplotlib.pyplot as plt
 import pandas as pd
 import torch
-from model import Net, SimpleNet, SimpleNet2, ResNetG, SimpleNetMax, SimpleNetW, SimpleNetWSage
+from model import Net, SimpleNet, SimpleNet2, ResNetG, SimpleNetMax, SimpleNetW, SimpleNetWSage, ModelHeterogene
 import pickle as pkl
 import torch
+# torch.nn.Module.dump_patches = True
 from collections import namedtuple
 
 if __name__ == '__main__':
 
+    # model = ModelHeterogene(16)
+    # model.load_state_dict(torch.load('model_examples/cholesky_n=8_nGPU=2_nCPU=2/model_dict_window_0.pt'))
     model = torch.load('model_examples/cholesky_n=8_nGPU=2_nCPU=2/model_window=0.pth')
     model.eval()
 
